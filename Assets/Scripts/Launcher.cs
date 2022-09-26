@@ -130,6 +130,18 @@ namespace Com.MyCompany.MyGame
             }
 
 
+            if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
+            {
+                Debug.Log("We load the 'Room for 2' ");
+
+                //#Critical
+                // Load the Room level
+                PhotonNetwork.LoadLevel("Room for 2");
+
+            }
+
+
+
         }
 
 

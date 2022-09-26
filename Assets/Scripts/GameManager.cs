@@ -54,6 +54,7 @@ namespace Com.MyCompany.MyGame
         }
 
 
+
         public override void OnPlayerLeftRoom(Player other)
         {
 
@@ -74,6 +75,8 @@ namespace Com.MyCompany.MyGame
 
         void Start()
         {
+
+            Debug.Log("GameManager.Start() is being called.");
 
             if (PlayerManager.LocalPlayerInstance == null)
             {
