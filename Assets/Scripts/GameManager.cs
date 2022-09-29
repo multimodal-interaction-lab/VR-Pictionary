@@ -78,7 +78,7 @@ namespace Com.MyCompany.MyGame
 
             Debug.Log("GameManager.Start() is being called.");
 
-            if (PlayerManager.LocalPlayerInstance == null)
+            if (VRPlayerManager.LocalPlayerInstance == null)
             {
                 Debug.LogFormat("We are instantiating local player from {0}", SceneManagerHelper.ActiveSceneName);
                 //We're in a room. Spawn a character for the local player. It gets synced by using PhotonNetwork.Instantiate

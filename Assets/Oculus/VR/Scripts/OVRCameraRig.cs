@@ -35,6 +35,9 @@ using Node = UnityEngine.XR.XRNode;
 [ExecuteInEditMode]
 public class OVRCameraRig : MonoBehaviour
 {
+
+	public static OVRCameraRig Instance;
+
 	/// <summary>
 	/// The left eye camera.
 	/// </summary>
@@ -124,6 +127,7 @@ public class OVRCameraRig : MonoBehaviour
 	protected virtual void Start()
 	{
 		UpdateAnchors(true, true);
+		Instance = this;
 		Application.onBeforeRender += OnBeforeRenderCallback;
 	}
 
