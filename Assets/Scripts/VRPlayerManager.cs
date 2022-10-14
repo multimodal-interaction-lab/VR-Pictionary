@@ -78,12 +78,17 @@ namespace Com.MyCompany.MyGame
             }
             */
 
+            Debug.Log("VR Manager Awaking!!");
+
             //#important
             //Used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.IsMine)
             {
-                //this.transform.SetParent(OVRCameraRig.Instance.transform, false);
-                PlayerManager.LocalPlayerInstance = this.gameObject;
+
+                Debug.Log("We are instantiating a local player instance");
+
+                VRPlayerManager.LocalPlayerInstance = this.gameObject;
+
 
                 head.GetComponent<MeshRenderer>().enabled = false;
                 leftHand.GetComponent<MeshRenderer>().enabled = false;
@@ -264,10 +269,10 @@ namespace Com.MyCompany.MyGame
 
 
         #region IPunObservable implementation
-
+        
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-
+            
             if (stream.IsWriting)
             {
                 //we own this player: send the others our data
@@ -282,11 +287,11 @@ namespace Com.MyCompany.MyGame
 
             }
 
-
+            
 
         }
 
-
+         
 
         #endregion
 

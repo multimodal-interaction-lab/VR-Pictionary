@@ -73,6 +73,7 @@ namespace Com.MyCompany.MyGame
             progressLabel.SetActive(false);
             controlPanel.SetActive(true);
 
+            Connect();
             
         }
 

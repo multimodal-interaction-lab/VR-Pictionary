@@ -60,7 +60,6 @@ namespace Com.MyCompany.MyGame
 
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 
-
             LoadArena();
 
         }
@@ -78,6 +77,7 @@ namespace Com.MyCompany.MyGame
 
             Debug.Log("GameManager.Start() is being called.");
 
+            //FIX?? check for master client
             if (VRPlayerManager.LocalPlayerInstance == null)
             {
                 Debug.LogFormat("We are instantiating local player from {0}", SceneManagerHelper.ActiveSceneName);
@@ -97,6 +97,7 @@ namespace Com.MyCompany.MyGame
 
         public void LeaveRoom()
         {
+            Debug.Log("Something has left the scene!!!");
             PhotonNetwork.LeaveRoom();
         }
 
