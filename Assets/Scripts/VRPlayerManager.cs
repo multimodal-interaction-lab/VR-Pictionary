@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
+using Microsoft.MixedReality.Toolkit.Input;
 
 namespace Com.MyCompany.MyGame
 {
@@ -49,6 +50,8 @@ namespace Com.MyCompany.MyGame
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+
+
         /*
         [Tooltip("The Player's UI GameObject Prefab")]
         [SerializeField]
@@ -78,7 +81,6 @@ namespace Com.MyCompany.MyGame
             }
             */
 
-            Debug.Log("VR Manager Awaking!!");
 
             //#important
             //Used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
@@ -154,7 +156,6 @@ namespace Com.MyCompany.MyGame
 
             if (photonView.IsMine)
             {
-                ProcessInputs();
                 if (Health <= 0f)
                 {
                     GameManager.Instance.LeaveRoom();
@@ -304,48 +305,6 @@ namespace Com.MyCompany.MyGame
 
         }
 #endif
-
-
-        #endregion
-
-
-
-        #region Custom
-
-        /// <summary>
-        /// Processes the inputs. Maintain a flag representing when the user is pressing Fire. 
-        /// </summary>
-        void ProcessInputs()
-        {
-
-            head.transform.position = OVRCameraRig.Instance.centerEyeAnchor.position;
-            head.transform.rotation = OVRCameraRig.Instance.centerEyeAnchor.rotation;
-
-            leftHand.transform.position = OVRCameraRig.Instance.leftHandAnchor.position;
-            leftHand.transform.rotation = OVRCameraRig.Instance.leftHandAnchor.rotation;
-
-            rightHand.transform.position = OVRCameraRig.Instance.rightHandAnchor.position;
-            rightHand.transform.rotation = OVRCameraRig.Instance.rightHandAnchor.rotation;
-
-
-            /*
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (!IsFiring)
-                {
-                    IsFiring = true;
-                }
-            }
-
-            if (Input.GetButtonUp("Fire1"))
-            {
-                if ((IsFiring))
-                {
-                    IsFiring = false;
-                }
-            }
-            */
-        }
 
 
         #endregion

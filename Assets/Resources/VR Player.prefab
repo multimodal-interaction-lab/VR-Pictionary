@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5229999982607624289}
   - component: {fileID: 4748429882132445727}
   - component: {fileID: 5454578815981048951}
+  - component: {fileID: 631127233674340666}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -100,6 +101,20 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &631127233674340666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609634139647532207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6494288f8b3154984fa6a4c116979d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSource: 4
+  handType: 255
 --- !u!1 &2912584385708220306
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,9 +124,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 165229796562393848}
-  - component: {fileID: -5684139972674169941}
   - component: {fileID: -6160889126802746371}
   - component: {fileID: 1207696116146547185}
+  - component: {fileID: 6992916292613887130}
   m_Layer: 0
   m_Name: VR Player
   m_TagString: Untagged
@@ -137,22 +152,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5684139972674169941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2912584385708220306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &-6160889126802746371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +171,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -5684139972674169941}
   - {fileID: 1207696116146547185}
   - {fileID: 5454578815981048951}
   - {fileID: 2238647258762132821}
@@ -196,6 +194,22 @@ MonoBehaviour:
   leftHand: {fileID: 5762554822271110770}
   rightHand: {fileID: 7939514647845314371}
   Health: 1
+--- !u!114 &6992916292613887130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2912584385708220306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5762554822271110770
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +222,7 @@ GameObject:
   - component: {fileID: 7030617027894678914}
   - component: {fileID: 6254374606397033350}
   - component: {fileID: 2238647258762132821}
+  - component: {fileID: 4435097313824439853}
   m_Layer: 0
   m_Name: Left Hand
   m_TagString: Untagged
@@ -296,6 +311,20 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &4435097313824439853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5762554822271110770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6494288f8b3154984fa6a4c116979d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSource: 1
+  handType: 1
 --- !u!1 &7939514647845314371
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +337,7 @@ GameObject:
   - component: {fileID: 5992465493491132170}
   - component: {fileID: 645915719344009500}
   - component: {fileID: 7043709317879090358}
+  - component: {fileID: 3129398520272445405}
   m_Layer: 0
   m_Name: Right Hand
   m_TagString: Untagged
@@ -396,3 +426,17 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &3129398520272445405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939514647845314371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6494288f8b3154984fa6a4c116979d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSource: 1
+  handType: 2

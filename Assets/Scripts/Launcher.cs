@@ -19,6 +19,7 @@ namespace Com.MyCompany.MyGame
         [SerializeField]
         private byte maxPlayersPerRoom = 4;
 
+        /*
         [Tooltip("The UI panel to let the user  enter name, connect, and play")]
         [SerializeField]
         private GameObject controlPanel;
@@ -26,7 +27,7 @@ namespace Com.MyCompany.MyGame
         [Tooltip("The UI label to inform the user that the connection is in progress")]
         [SerializeField]
         private GameObject progressLabel;
-
+        */
         #endregion
 
 
@@ -69,10 +70,10 @@ namespace Com.MyCompany.MyGame
         /// </summary>
         void Start()
         {
-
+            /*
             progressLabel.SetActive(false);
             controlPanel.SetActive(true);
-
+            */
             Connect();
             
         }
@@ -101,9 +102,10 @@ namespace Com.MyCompany.MyGame
 
         public override void OnDisconnected(DisconnectCause cause)
         {
+            /*
             progressLabel.SetActive(false);
             controlPanel.SetActive(true);
-
+            */
 
             Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
         }
@@ -120,49 +122,13 @@ namespace Com.MyCompany.MyGame
         {
             Debug.Log("PUN Basics Tutoiral/Launcher: OnJoinedRoom() was called by PUN. Now this client is in a room :)");
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
+            
                 Debug.Log("We load the 'Room for 1' ");
 
 
                 // #Critical
                 // Load the Room level
                 PhotonNetwork.LoadLevel("Room for 1");
-            }
-
-
-            if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            {
-                Debug.Log("We load the 'Room for 2' ");
-
-                //#Critical
-                // Load the Room level
-                PhotonNetwork.LoadLevel("Room for 2");
-
-            }
-
-            if(PhotonNetwork.CurrentRoom.PlayerCount == 3)
-            {
-                Debug.Log("We load the 'Room for 3' ");
-
-                // #Critical 
-                // Load the Room level
-                PhotonNetwork.LoadLevel("Room for 3");
-
-            }
-
-            if(PhotonNetwork.CurrentRoom.PlayerCount == 4)
-            {
-                Debug.Log("We load the 'Room for 4' ");
-
-                // #Critical 
-                // Load the Room level
-                PhotonNetwork.LoadLevel("Room for 4");
-
-
-            }
-
-
         }
 
 
@@ -177,10 +143,10 @@ namespace Com.MyCompany.MyGame
         /// </summary>
         public void Connect()
         {
-
+            /*
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
-
+            */
             
 
             //checks if the Photon Cloud network is connected.

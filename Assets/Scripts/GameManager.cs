@@ -46,7 +46,7 @@ namespace Com.MyCompany.MyGame
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerEnteredRoom
 
 
-                LoadArena();
+                //LoadArena();
 
             }
 
@@ -60,7 +60,7 @@ namespace Com.MyCompany.MyGame
 
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 
-            LoadArena();
+            //LoadArena();
 
         }
 
@@ -82,7 +82,7 @@ namespace Com.MyCompany.MyGame
             {
                 Debug.LogFormat("We are instantiating local player from {0}", SceneManagerHelper.ActiveSceneName);
                 //We're in a room. Spawn a character for the local player. It gets synced by using PhotonNetwork.Instantiate
-                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(-1f + PhotonNetwork.CurrentRoom.PlayerCount, 1f, 0f), Quaternion.identity, 0);
 
 
             }
@@ -118,7 +118,7 @@ namespace Com.MyCompany.MyGame
             }
 
             Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+            PhotonNetwork.LoadLevel("Room for 1");
 
         }
 
