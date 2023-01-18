@@ -28,7 +28,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 157477061509426212}
   - {fileID: 157477061869784621}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -60,11 +59,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157477061509426208}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.049999997, y: -0.01727423, z: -0.13000001}
+  m_LocalPosition: {x: -0.08, y: -0.1399, z: 0.1999999}
   m_LocalScale: {x: 10.606407, y: 8.0542, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 157477061230710065}
+  m_Father: {fileID: 157477061869784621}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &157477061509426213
@@ -161,9 +160,10 @@ Transform:
   m_LocalPosition: {x: 0.03, y: 0.12262577, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 157477061509426212}
   m_Father: {fileID: 157477061230710065}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &157477061869784618
 SpriteRenderer:
@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571045d48cec88d48848f53bf379f673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Eraser_Width: 6
   Drawing_Layers:
     serializedVersion: 2
     m_Bits: 8

@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.2/Demos - Input/Scenes/InputData/InputDataExample.unity
     guid: 65969a02ef16ad647a97e884613dc32a
+  - enabled: 0
+    path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.2/Demos - HandTracking/Scenes/HandMenuExamples.unity
+    guid: 2792ec9767804e644906ab978f2eed23
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7a197a9f389667b43aaad1425893a9a4, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f829a674f05fb2e46ab0a71917607822, type: 2}

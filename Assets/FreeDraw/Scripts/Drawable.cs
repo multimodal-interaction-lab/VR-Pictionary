@@ -17,7 +17,7 @@ namespace FreeDraw
     public class Drawable : MonoBehaviour, IMixedRealityFocusHandler, IMixedRealityPointerHandler
     {
         // PEN COLOUR
-        public static Color Pen_Colour = Color.red;     // Change these to change the default drawing settings
+        public static Color Pen_Colour = Color.gray;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
         public static int Pen_Width = 3;
 
@@ -57,6 +57,7 @@ namespace FreeDraw
         float[] colorInfo = new float[4];
 
         IMixedRealityPointer _pointer;
+        IMixedRealityPointer[] hand_pointers;
 
         Color Eraser_Color;
 
@@ -195,8 +196,8 @@ namespace FreeDraw
 
 
 
-                Debug.Log(_pointer.PointerName);
-                Debug.Log(_pointer.PointerId);
+                //Debug.Log(_pointer.PointerName);
+                //Debug.Log(_pointer.PointerId);
                 //Debug.Log("Position" + position.x);
                 if (_pointer.Result != null)
                 {
@@ -442,7 +443,16 @@ namespace FreeDraw
             //set focus to true because the pointer is on the object
             numFocused += 1;
             _pointer = eventData.Pointer;
-            Debug.Log("In focus");
+            //Debug.Log("In focus");
+
+        }
+
+        public void EnterGazeOnWhiteBoard(Microsoft.MixedReality.Toolkit.Input.HandTrackingInputEventData eventData)
+        {
+
+            numFocused += 1;
+            hand_pointers = eventData.InputSource.Pointers;
+
 
         }
 
@@ -450,7 +460,7 @@ namespace FreeDraw
         {
             //set focus to false because pointer has left the object
             numFocused -= 1;
-            Debug.Log("Out of focus");
+            //Debug.Log("Out of focus");
 
         }
 
@@ -462,31 +472,54 @@ namespace FreeDraw
         //sets the pen color to the value on the 'r' slider
         public void SetPenColorRed(SliderEventData eventData)
         {
-
+            if (isErasing)
+            {
+                ToggleErasing();
+            }
             Pen_Colour = new Color(eventData.NewValue, Pen_Colour.g, Pen_Colour.b);
             colorInfo[0] = Pen_Colour.r;
+            
 
         }
 
         //sets the pen color to the value on the 'g' slider
         public void SetPenColorGreen(SliderEventData eventData)
         {
-
+            if (isErasing)
+            {
+                ToggleErasing();
+            }
             Pen_Colour = new Color(Pen_Colour.r, eventData.NewValue, Pen_Colour.b);
             colorInfo[1] = Pen_Colour.g;
+            
 
         }
 
         //sets the pen color to the value on the 'b' slider
         public void SetPenColorBlue(SliderEventData eventData)
         {
-
+            if (isErasing)
+            {
+                ToggleErasing();
+            }
             Pen_Colour = new Color(Pen_Colour.r, Pen_Colour.g, eventData.NewValue);
             colorInfo[2] = Pen_Colour.b;
+            
 
         }
         #endregion
 
+        #region Font Size Controls
+
+        public void SetFontSize(int fontSize)
+        {
+            Debug.Log("Receiving changes");
+            Pen_Width = fontSize;
+
+        }
+
+
+        #endregion
 
         #region IMixedRealityFocus
 
@@ -542,7 +575,8 @@ namespace FreeDraw
         }
 
         #endregion
-        
+
+
 
         #region External Controller Functions
 
@@ -590,6 +624,7 @@ namespace FreeDraw
 
 
         #endregion
+
 
         #region PUN Implemented Methods
 
