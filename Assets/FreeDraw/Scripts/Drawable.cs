@@ -35,7 +35,6 @@ namespace FreeDraw
         public LayerMask Drawing_Layers;
 
         public bool Reset_Canvas_On_Play = true;
-
         public bool EnableVRDraw;
 
         // The colour the canvas is reset to each time
@@ -66,6 +65,7 @@ namespace FreeDraw
         //bool no_drawing_on_current_drag = false;
 
         bool isErasing = false;
+        private bool isClicking = false;
 
         //Network enabled componenent
         PhotonView photonview;
@@ -189,7 +189,7 @@ namespace FreeDraw
         void Update()
         {
 
-
+            
 
             if (EnableVRDraw && numFocused > 0)
             {
@@ -201,6 +201,7 @@ namespace FreeDraw
                 //Debug.Log("Position" + position.x);
                 if (_pointer.Result != null)
                 {
+                    Debug.Log("Pointer exists");
                     if (_pointer.IsFocusLocked)
                     {
 
@@ -209,6 +210,7 @@ namespace FreeDraw
                         //should be parallelized in future with target.other so we can send in current colors and width as well
                         photonview.RPC("PenBrushNet", RpcTarget.Others, local_pos, Pen_Width, colorInfo, previous_drag_position);
                         current_brush(local_pos);
+                        Debug.Log("Attempted to draw");
                     }
                     else
                     {
@@ -217,6 +219,10 @@ namespace FreeDraw
 
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("None focused");
             }
 
 
@@ -357,6 +363,7 @@ namespace FreeDraw
             float pixelWidth = drawable_sprite.rect.width;
             float pixelHeight = drawable_sprite.rect.height;
 
+
             float unitsToPixels = pixelWidth / drawable_sprite.bounds.size.x * transform.localScale.x;
 
             // Need to center our coordinates
@@ -443,7 +450,7 @@ namespace FreeDraw
             //set focus to true because the pointer is on the object
             numFocused += 1;
             _pointer = eventData.Pointer;
-            //Debug.Log("In focus");
+            Debug.Log("In focus");
 
         }
 
@@ -460,7 +467,7 @@ namespace FreeDraw
         {
             //set focus to false because pointer has left the object
             numFocused -= 1;
-            //Debug.Log("Out of focus");
+            Debug.Log("Out of focus");
 
         }
 
@@ -550,7 +557,8 @@ namespace FreeDraw
         void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
         {
             Debug.Log("Click activated");
-            //isClicking = true;
+            _pointer = eventData.Pointer;
+            isClicking = true;
 
 
         }
@@ -558,7 +566,7 @@ namespace FreeDraw
         void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
         {
             Debug.Log("Click deactivated");
-            //isClicking = false;
+            isClicking = false;
 
         }
 
@@ -575,7 +583,6 @@ namespace FreeDraw
         }
 
         #endregion
-
 
 
         #region External Controller Functions
