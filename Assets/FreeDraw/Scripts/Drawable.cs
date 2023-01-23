@@ -17,14 +17,16 @@ namespace FreeDraw
     public class Drawable : MonoBehaviour, IMixedRealityFocusHandler, IMixedRealityPointerHandler
     {
         // PEN COLOUR
-        public static Color Pen_Colour = Color.gray;     // Change these to change the default drawing settings
+        public static Color32 Pen_Colour = Color.gray;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
         public static int Pen_Width = 3;
 
         public int Eraser_Width = 6;
+        public int TimesDrawn = 0;
 
-        Color Saved_Colour;
+        Color32 Saved_Colour;
         int Saved_Width;
+
 
         public delegate void Brush_Function(Vector3 local_pos);
         // This is the function called when a left click happens
@@ -69,6 +71,9 @@ namespace FreeDraw
 
         //Network enabled componenent
         PhotonView photonview;
+
+        Vector3 startPosition;
+        Quaternion startRotation;
 
 
         //////////////////////////////////////////////////////////////////////////////
@@ -119,6 +124,16 @@ namespace FreeDraw
 
 
 
+        public void Start()
+        {
+
+            startPosition = this.transform.position;
+            startRotation = this.transform.rotation;
+
+        }
+
+
+
 
         // Default brush type. Has width and colour.
         // Pass in a point in WORLD coordinates
@@ -126,6 +141,8 @@ namespace FreeDraw
 
         public void PenBrush(Vector3 local_pos)
         {
+
+            
 
             Vector2 pixel_pos = LocalToPixelCoordinates(local_pos);
 
@@ -201,7 +218,7 @@ namespace FreeDraw
                 //Debug.Log("Position" + position.x);
                 if (_pointer.Result != null)
                 {
-                    Debug.Log("Pointer exists");
+                    //Debug.Log("Pointer exists");
                     if (_pointer.IsFocusLocked)
                     {
 
@@ -210,7 +227,7 @@ namespace FreeDraw
                         //should be parallelized in future with target.other so we can send in current colors and width as well
                         photonview.RPC("PenBrushNet", RpcTarget.Others, local_pos, Pen_Width, colorInfo, previous_drag_position);
                         current_brush(local_pos);
-                        Debug.Log("Attempted to draw");
+                        //Debug.Log("Attempted to draw");
                     }
                     else
                     {
@@ -222,7 +239,7 @@ namespace FreeDraw
             }
             else
             {
-                Debug.Log("None focused");
+                //Debug.Log("None focused");
             }
 
 
@@ -266,8 +283,10 @@ namespace FreeDraw
 
 
         // Set the colour of pixels in a straight line from start_point all the way to end_point, to ensure everything inbetween is coloured
-        public void ColourBetween(Vector2 start_point, Vector2 end_point, int width, Color color)
+        public void ColourBetween(Vector2 start_point, Vector2 end_point, int width, Color32 color)
         {
+            
+            
             // Get the distance from start to finish
             float distance = Vector2.Distance(start_point, end_point);
             Vector2 direction = (start_point - end_point).normalized;
@@ -277,24 +296,27 @@ namespace FreeDraw
             // Calculate how many times we should interpolate between start_point and end_point based on the amount of time that has passed since the last update
             float lerp_steps = 1 / distance;
 
+            //OPTIMIZATION:: this should be changed to account for font size and only draw on area a previous interpolation has not yet reached
+
             for (float lerp = 0; lerp <= 1; lerp += lerp_steps)
             {
                 cur_position = Vector2.Lerp(start_point, end_point, lerp);
                 MarkPixelsToColour(cur_position, width, color);
             }
+            
         }
 
 
 
 
 
-        public void MarkPixelsToColour(Vector2 center_pixel, int pen_thickness, Color color_of_pen)
+        public void MarkPixelsToColour(Vector2 center_pixel, int pen_thickness, Color32 color_of_pen)
         {
             // Figure out how many pixels we need to colour in each direction (x and y)
             int center_x = (int)center_pixel.x;
             int center_y = (int)center_pixel.y;
             //int extra_radius = Mathf.Min(0, pen_thickness - 2);
-
+            TimesDrawn++;
             for (int x = center_x - pen_thickness; x <= center_x + pen_thickness; x++)
             {
                 // Check if the X wraps around the image, so we don't draw pixels on the other side of the image
@@ -307,7 +329,7 @@ namespace FreeDraw
                 }
             }
         }
-        public void MarkPixelToChange(int x, int y, Color color)
+        public void MarkPixelToChange(int x, int y, Color32 color)
         {
             // Need to transform x and y coordinates to flat coordinates of array
             int array_pos = y * (int)drawable_sprite.rect.width + x;
@@ -316,7 +338,9 @@ namespace FreeDraw
             if (array_pos > cur_colors.Length || array_pos < 0)
                 return;
 
-            cur_colors[array_pos] = color;
+            cur_colors[array_pos].r = color.r;
+            cur_colors[array_pos].g = color.g;
+            cur_colors[array_pos].b = color.b;
         }
         public void ApplyMarkedPixelChanges()
         {
@@ -347,7 +371,7 @@ namespace FreeDraw
         }
 
 
-        public Vector3 WorldToLocalCoordinates(Vector2 world_position)
+        public Vector3 WorldToLocalCoordinates(Vector3 world_position)
         {
 
             return transform.InverseTransformPoint(world_position);
@@ -357,14 +381,15 @@ namespace FreeDraw
 
         public Vector2 LocalToPixelCoordinates(Vector3 local_pos)
         {
+
+            //NEEDED:: fixes for scalability
             // Change coordinates to local coordinates of this image
 
             // Change these to coordinates of pixels
             float pixelWidth = drawable_sprite.rect.width;
             float pixelHeight = drawable_sprite.rect.height;
 
-
-            float unitsToPixels = pixelWidth / drawable_sprite.bounds.size.x * transform.localScale.x;
+            float unitsToPixels = pixelWidth / drawable_sprite.bounds.size.x;  // * transform.localScale.x; WHY was this here in the first place??
 
             // Need to center our coordinates
             float centered_x = local_pos.x * unitsToPixels + pixelWidth / 2;
@@ -450,7 +475,7 @@ namespace FreeDraw
             //set focus to true because the pointer is on the object
             numFocused += 1;
             _pointer = eventData.Pointer;
-            Debug.Log("In focus");
+            //Debug.Log("In focus");
 
         }
 
@@ -467,7 +492,7 @@ namespace FreeDraw
         {
             //set focus to false because pointer has left the object
             numFocused -= 1;
-            Debug.Log("Out of focus");
+            //Debug.Log("Out of focus");
 
         }
 
@@ -520,7 +545,7 @@ namespace FreeDraw
 
         public void SetFontSize(int fontSize)
         {
-            Debug.Log("Receiving changes");
+            //Debug.Log("Receiving changes");
             Pen_Width = fontSize;
 
         }
@@ -556,7 +581,7 @@ namespace FreeDraw
 
         void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
         {
-            Debug.Log("Click activated");
+            //Debug.Log("Click activated");
             _pointer = eventData.Pointer;
             isClicking = true;
 
@@ -565,7 +590,7 @@ namespace FreeDraw
 
         void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
         {
-            Debug.Log("Click deactivated");
+            //Debug.Log("Click deactivated");
             isClicking = false;
 
         }
@@ -626,6 +651,16 @@ namespace FreeDraw
                 colorInfo[3] = Pen_Colour.a;
 
             }
+
+        }
+
+
+        public void ResetPosition()
+        {
+
+            this.transform.position = startPosition;
+            this.transform.rotation = startRotation;
+
 
         }
 

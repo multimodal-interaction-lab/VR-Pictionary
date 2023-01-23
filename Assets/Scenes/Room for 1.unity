@@ -4514,6 +4514,10 @@ PrefabInstance:
       propertyPath: Eraser_Width
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 157477061869784620, guid: b2128663cb58b3842a0309b52a390062, type: 3}
+      propertyPath: debugProjection
+      value: 
+      objectReference: {fileID: 4110138122459013795, guid: 64bfb69ee9f192b47962d5244dc22cc7, type: 3}
     - target: {fileID: 157477061869784621, guid: b2128663cb58b3842a0309b52a390062, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12
@@ -4549,6 +4553,10 @@ PrefabInstance:
     - target: {fileID: 157477061869784621, guid: b2128663cb58b3842a0309b52a390062, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 157477061869784621, guid: b2128663cb58b3842a0309b52a390062, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 157477061869784623, guid: b2128663cb58b3842a0309b52a390062, type: 3}
       propertyPath: m_Center.x
@@ -4695,24 +4703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98de877dee5fc341b4eb59dfdab266c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoConstraintSelection: 0
-  selectedConstraints:
-  - {fileID: 1261031667}
---- !u!114 &1261031667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261031658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff5df7a2c3b5b4843bdc23997f95edc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handType: 3
-  proximityType: 3
-  executionOrder: 0
+  autoConstraintSelection: 1
+  selectedConstraints: []
 --- !u!1 &1305288255
 GameObject:
   m_ObjectHideFlags: 0
@@ -9952,7 +9944,7 @@ MonoBehaviour:
   iconSprite: {fileID: 21300000, guid: 20f25674b9512834f88938d45ed495d7, type: 3}
   iconQuadRenderer: {fileID: 7764551737118065241}
   iconQuadTextureNameID: _MainTex
-  iconQuadTexture: {fileID: 2800000, guid: 4494cfaf424cdde49895b91e2b559258, type: 3}
+  iconQuadTexture: {fileID: 2800000, guid: 85835ae0b6c3c1c418a57400fcbb788c, type: 3}
   defaultButtonQuadMaterial: {fileID: 2100000, guid: fa419ab56051229449e3b813df8f295f, type: 2}
   iconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
   defaultIconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
@@ -22573,6 +22565,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1261031657}
+        m_TargetAssemblyTypeName: FreeDraw.Drawable, Assembly-CSharp
+        m_MethodName: ResetPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
@@ -24053,7 +24057,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button Two
+  m_text: Reset Board Position
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
