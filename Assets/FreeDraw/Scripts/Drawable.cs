@@ -124,16 +124,6 @@ namespace FreeDraw
 
 
 
-        public void Start()
-        {
-
-            startPosition = this.transform.position;
-            startRotation = this.transform.rotation;
-
-        }
-
-
-
 
         // Default brush type. Has width and colour.
         // Pass in a point in WORLD coordinates
@@ -294,7 +284,7 @@ namespace FreeDraw
             Vector2 cur_position = start_point;
 
             // Calculate how many times we should interpolate between start_point and end_point based on the amount of time that has passed since the last update
-            float lerp_steps = 1 / distance;
+            float lerp_steps = 1/ distance; //CHANGE:: added width to calculation, interpolation and frame check needed
 
             //OPTIMIZATION:: this should be changed to account for font size and only draw on area a previous interpolation has not yet reached
 
@@ -448,6 +438,9 @@ namespace FreeDraw
             drawable_sprite = this.GetComponent<SpriteRenderer>().sprite;
             drawable_texture = drawable_sprite.texture;
 
+            startPosition = this.transform.position;
+            startRotation = this.transform.rotation;
+
             colorInfo[0] = Pen_Colour.r;
             colorInfo[1] = Pen_Colour.g;
             colorInfo[2] = Pen_Colour.b;
@@ -508,7 +501,7 @@ namespace FreeDraw
             {
                 ToggleErasing();
             }
-            Pen_Colour = new Color(eventData.NewValue, Pen_Colour.g, Pen_Colour.b);
+            Pen_Colour = new Color(eventData.NewValue, Pen_Colour.g/255f, Pen_Colour.b/255f);
             colorInfo[0] = Pen_Colour.r;
             
 
@@ -521,7 +514,7 @@ namespace FreeDraw
             {
                 ToggleErasing();
             }
-            Pen_Colour = new Color(Pen_Colour.r, eventData.NewValue, Pen_Colour.b);
+            Pen_Colour = new Color(Pen_Colour.r/255f, eventData.NewValue, Pen_Colour.b/255f);
             colorInfo[1] = Pen_Colour.g;
             
 
@@ -534,7 +527,7 @@ namespace FreeDraw
             {
                 ToggleErasing();
             }
-            Pen_Colour = new Color(Pen_Colour.r, Pen_Colour.g, eventData.NewValue);
+            Pen_Colour = new Color(Pen_Colour.r/255f, Pen_Colour.g/255f, eventData.NewValue);
             colorInfo[2] = Pen_Colour.b;
             
 
