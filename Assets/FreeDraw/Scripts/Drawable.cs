@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.UI;
 
@@ -16,6 +17,12 @@ namespace FreeDraw
     // 4. Hold down left mouse to draw on this texture!
     public class Drawable : MonoBehaviour, IMixedRealityFocusHandler, IMixedRealityPointerHandler
     {
+
+
+
+        #region Initial Variables
+
+
         // PEN COLOUR
         public static Color32 Pen_Colour = Color.gray;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
@@ -58,7 +65,7 @@ namespace FreeDraw
         float[] colorInfo = new float[4];
 
         IMixedRealityPointer _pointer;
-        IMixedRealityPointer[] hand_pointers;
+        IMixedRealityPointer[] hand_pointers;  //not currently used
 
         Color Eraser_Color;
 
@@ -67,14 +74,14 @@ namespace FreeDraw
         //bool no_drawing_on_current_drag = false;
 
         bool isErasing = false;
-        private bool isClicking = false;
+        private bool isClicking = false; //not currently used
 
         //Network enabled componenent
         PhotonView photonview;
 
-        Vector3 startPosition;
-        Quaternion startRotation;
+        #endregion
 
+        #region Brush Methods
 
         //////////////////////////////////////////////////////////////////////////////
         // BRUSH TYPES. Implement your own here
@@ -189,6 +196,8 @@ namespace FreeDraw
         }
         //////////////////////////////////////////////////////////////////////////////
 
+        #endregion
+
 
         // This is where the magic happens.
         // Detects when user is [click action] and hovering over whiteboard, which then call the appropriate function
@@ -270,6 +279,8 @@ namespace FreeDraw
             */
         }
 
+
+        #region Translating & Coloring
 
 
         // Set the colour of pixels in a straight line from start_point all the way to end_point, to ensure everything inbetween is coloured
@@ -414,6 +425,8 @@ namespace FreeDraw
 
         }
 
+        #endregion
+
 
         // Changes every pixel to be the reset colour
         [PunRPC]
@@ -438,13 +451,10 @@ namespace FreeDraw
             drawable_sprite = this.GetComponent<SpriteRenderer>().sprite;
             drawable_texture = drawable_sprite.texture;
 
-            startPosition = this.transform.position;
-            startRotation = this.transform.rotation;
-
             colorInfo[0] = Pen_Colour.r;
             colorInfo[1] = Pen_Colour.g;
             colorInfo[2] = Pen_Colour.b;
-            colorInfo[3] = 1;
+            colorInfo[3] = 1; //transparency
 
             // Initialize clean pixels to use
             clean_colours_array = new Color[(int)drawable_sprite.rect.width * (int)drawable_sprite.rect.height];
@@ -607,7 +617,7 @@ namespace FreeDraw
 
         public void ToggleDrawingEnabled()
         {
-            Debug.Log("Toggled Drawing!");
+            //Debug.Log("Toggled Drawing!");
             EnableVRDraw = !EnableVRDraw;
         }
 
@@ -651,8 +661,8 @@ namespace FreeDraw
         public void ResetPosition()
         {
 
-            this.transform.position = startPosition;
-            this.transform.rotation = startRotation;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
 
 
         }
