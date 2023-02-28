@@ -8,7 +8,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace FreeDraw
+namespace VRDrawable
 {
     [RequireComponent(typeof(SpriteRenderer))] // REQUIRES A COLLIDER2D to function
     // 1. Attach this to a read/write enabled sprite image
@@ -242,41 +242,6 @@ namespace FreeDraw
             }
 
 
-            /*
-            // Is the user holding down the left mouse button?
-            bool mouse_held_down = Input.GetMouseButton(0);
-            if (mouse_held_down && !no_drawing_on_current_drag)
-            {
-                // Convert mouse coordinates to world coordinates
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if(Physics.Raycast(ray, out RaycastHit hit, 100.0f, Drawing_Layers.value))
-                {
-
-                    current_brush(hit.point);
-
-                }
-
-                else
-                {
-                    // We're not over our destination texture
-                    previous_drag_position = Vector2.zero;
-                    if (!mouse_was_previously_held_down)
-                    {
-                        // This is a new drag where the user is left clicking off the canvas
-                        // Ensure no drawing happens until a new drag is started
-                        no_drawing_on_current_drag = true;
-                    }
-                }
-            }
-            // Mouse is released
-            else if (!mouse_held_down)
-            {
-                previous_drag_position = Vector2.zero;
-                no_drawing_on_current_drag = false;
-            }
-            mouse_was_previously_held_down = mouse_held_down;
-            */
         }
 
 
